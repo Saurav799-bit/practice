@@ -206,4 +206,22 @@ if [ "$count" -gt 2 ]; then
 else
     echo "this is okay!"
 fi
-
+docker makefile 
+IMAGE_NAME = myimage
+CONTAINER_NAME = mycontainer
+all: build run
+build:
+	docker build -t $(IMAGE_NAME) .
+run:
+	docker run --name $(CONTAINER_NAME) -d $(IMAGE_NAME)
+stop:
+	docker stop $(CONTAINER_NAME)
+rm:
+	docker rm $(CONTAINER_NAME)
+rmi:
+	docker rmi $(IMAGE_NAME)
+ps:
+	docker ps
+logs:
+	docker logs -f $(CONTAINER_NAME)
+clean: stop rm rmi 
